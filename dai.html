@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>粮食产量统计南丁格尔玫瑰图</title>
+  <!-- 引入 Echarts 库 -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+</head>
+
+<body>
+  <!-- 用于渲染图表的容器 -->
+  <div id="chart" style="width: 800px; height: 600px;"></div>
+
+  <script>
+    // 初始化图表
+    const myChart = echarts.init(document.getElementById('chart'));
+
+    // 定义图表数据
+    const data = [
+      { name: '内蒙古', value: 4100.5 },
+      { name: '四 川', value: 3633.8 },
+      { name: '新 疆', value: 2330.2 },
+      { name: '云 南', value: 1993.5 },
+      { name: '广 西', value: 1403.8 },
+      { name: '陕 西', value: 1352.3 },
+      { name: '甘 肃', value: 1296.1 },
+      { name: '贵 州', value: 1146.11 },
+      { name: '重 庆', value: 1100.7 },
+      { name: '宁 夏', value: 385.9 },
+      { name: '青 海', value: 118.3 },
+      { name: '西 藏', value: 112.9 }
+    ];
+
+    // 配置图表选项
+    const option = {
+      title: {
+        text: '2024 年西部地区各地区粮食总产量分布',
+        left: 'center',
+        // 减小 bottom 的值来缩小图名与图表的间距
+        bottom: '85%'
+      },
+      tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b}: {c}（万吨） ({d}%)'
+      },
+      legend: {
+        type: 'scroll',
+        orient: 'vertical',
+        left: 'right',
+        top: 'middle',
+        align: 'left',
+        data: data.map(item => item.name)
+      },
+      toolbox: {
+        show: true,
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      series: [
+        {
+          name: '粮食产量',
+          type: 'pie',
+          radius: [20, 150],
+          // 增大 center 的第一个值，使图表右移
+          center: ['45%', '50%'],
+          roseType: 'radius',
+          label: {
+            show: true,
+            formatter: '{b}: {c}（万吨） ({d}%)'
+          },
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          },
+          data: data
+        }
+      ]
+    };
+
+    // 使用配置项渲染图表
+    myChart.setOption(option);
+  </script>
+</body>
+
+</html>
